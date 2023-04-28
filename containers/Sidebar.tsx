@@ -4,7 +4,7 @@ import { DetailsHero } from '@/components/DetailsHero'
 
 export const Sidebar = () => {
   return (
-    <div>
+    <div className='flex flex-col w-full h-full gap-4'>
       <AddHero />
       <DetailsHero />
     </div>

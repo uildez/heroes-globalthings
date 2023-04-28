@@ -7,14 +7,12 @@ export const HeroesDisplay = () => {
     const { data } = useAppContext();
 
     return (
-        <div>
+        <div className='flex flex-col gap-2 items-center justify-center w-full h-full overflow-y-scroll px-4 py-4 pt-40 bg-zinc-900 rounded-lg'>
             {data.map((hero, index) => {
                 return (
-                    <Hero 
+                    <Hero
                         key={index}
-                        name={hero.Name}
-                        category={hero.Category.Name}
-                        active={hero.Active}
+                        {...hero}
                     />
                 )
             })}
