@@ -29,3 +29,25 @@ body {
 .heroes{
   min-height: 450px
 }
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary) var(--primary);
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #3F3F46;
+  border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #22C55E;
+  border-radius: 14px;
+  border: 3px solid var(--primary);
+}

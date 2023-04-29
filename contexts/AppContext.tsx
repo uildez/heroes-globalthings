@@ -33,6 +33,11 @@ type AppContextType = {
     handleAddHero: (newHero: Hero) => void;
     handleSelectedHero: (heroUpdate: Hero) => void;
     handleUptadedHero: (heroUpdate: Hero) => void;
+    
+    newCategory: boolean;
+    setNewCategory: (modal: boolean) => void;
+    handleAddCategory: (name: string) => void;
+    handleDeleteCategory: (id: number) => void;
 };
 
 const AppContext = createContext<AppContextType>({
@@ -48,6 +53,11 @@ const AppContext = createContext<AppContextType>({
     handleAddHero: () => { },
     handleSelectedHero: () => { },
     handleUptadedHero: () => { },
+    
+    newCategory: false,
+    setNewCategory: () => { },
+    handleAddCategory: () => { },
+    handleDeleteCategory: () => { },
 });
 
 export const useAppContext = () => useContext(AppContext);
@@ -58,6 +68,7 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
     const [categories, setCategories] = useState<Categories[]>([]);
 
     const [modal, setModal] = useState<boolean>(false);
+    const [newCategory, setNewCategory] = useState<boolean>(false);
 
     const [selectedHero, setSelectedHero] = useState<Hero>({
         Id: 0,
@@ -86,8 +97,7 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
         fetchData();
     }, []);
 
-
-    const handleAddHero = (async (newHero: Hero) => {
+    const handleAddHero = useCallback(async (newHero: Hero) => {
         const hero = {
             Name: newHero.Name,
             CategoryId: newHero.Category.Id,
@@ -102,8 +112,7 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
         } catch (error) {
             console.error(error);
         }
-        setModal(false)
-    });
+    }, []);
 
     const handleDelete = useCallback(async (id: number) => {
         try {
@@ -117,8 +126,8 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
     const handleSelectedHero = async (heroUpdate: Hero) => {
         setSelectedHero(heroUpdate)
     }
-    
-    const handleUptadedHero = async (heroToUpdate: Hero) => {
+
+    const handleUptadedHero = useCallback(async (heroToUpdate: Hero) => {
         const hero = {
             Name: heroToUpdate.Name,
             CategoryId: heroToUpdate.Category.Id,
@@ -134,9 +143,31 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
             console.error(error);
         }
 
-        setSelectedHero({...selectedHero, Id: 0})
-    }
-    
+        setSelectedHero({ ...selectedHero, Id: 0 })
+    }, [selectedHero]);
+
+
+
+    const handleAddCategory = useCallback(async (name: string) => {
+        const newCategorie = { Name: name} 
+        try {
+            const response = await api.post('/Category', newCategorie, { headers });
+            setCategories(prevState => [...prevState, response.data]);
+            setNewCategory(false)
+        } catch (error) {
+            console.error(error);
+        }
+    }, []);
+
+    const handleDeleteCategory = useCallback(async (id: number) => {
+        try {
+            await api.delete(`/Category/${id}`, { headers });
+            setCategories(data.filter((category) => category.Id !== id));
+        } catch (error) {
+            console.error(error);
+        }
+    }, [data]);
+
 
     return (
         <AppContext.Provider value={{
@@ -150,8 +181,13 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
             handleAddHero,
             handleSelectedHero,
             handleUptadedHero,
+
+            newCategory,
+            setNewCategory,
             categories,
-            setCategories
+            setCategories,
+            handleAddCategory,
+            handleDeleteCategory
         }}>
             {children}
         </AppContext.Provider>
