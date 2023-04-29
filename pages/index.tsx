@@ -7,7 +7,7 @@ import { useAppContext } from '@/contexts/AppContext'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  const { modal } = useAppContext();
+  // const { modal } = useAppContext();
 
   return (
     <>
@@ -24,7 +24,7 @@ export default function Home() {
           </div>
         </div>
       </main>
-      {modal && <Modal />}
+      {/* {modal && <Modal />} */}
     </>
   )
 }

@@ -10,8 +10,8 @@ interface Hero {
     Name: string;
     Active: boolean;
     Category: {
-        Id: number;
-        Name: string;
+        Id?: number;
+        Name?: string;
     };
 }
 
@@ -23,23 +23,31 @@ interface Categories {
 type AppContextType = {
     data: Hero[];
     setData: (data: Hero[]) => void;
+    selectedHero: Hero;
+    setSelectedHero: (data: Hero) => void;
     categories: Categories[];
     setCategories: (data: Categories[]) => void;
     modal: boolean;
     setModal: (modal: boolean) => void;
     handleDelete: (id: number) => void;
     handleAddHero: (newHero: Hero) => void;
+    handleSelectedHero: (heroUpdate: Hero) => void;
+    handleUptadedHero: (heroUpdate: Hero) => void;
 };
 
 const AppContext = createContext<AppContextType>({
     data: [],
     setData: () => { },
+    selectedHero: {} as Hero,
+    setSelectedHero: () => { },
     categories: [],
     setCategories: () => { },
     modal: false,
     setModal: () => { },
     handleDelete: () => { },
     handleAddHero: () => { },
+    handleSelectedHero: () => { },
+    handleUptadedHero: () => { },
 });
 
 export const useAppContext = () => useContext(AppContext);
@@ -48,7 +56,19 @@ export const useAppContext = () => useContext(AppContext);
 export const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
     const [data, setData] = useState<Hero[]>([]);
     const [categories, setCategories] = useState<Categories[]>([]);
+
     const [modal, setModal] = useState<boolean>(false);
+
+    const [selectedHero, setSelectedHero] = useState<Hero>({
+        Id: 0,
+        Name: '',
+        Active: true,
+        Category: {
+            Id: 0,
+            Name: ''
+        }
+    });
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -68,22 +88,22 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
 
 
     const handleAddHero = (async (newHero: Hero) => {
-        console.log(newHero)
+        const hero = {
+            Name: newHero.Name,
+            CategoryId: newHero.Category.Id,
+            CategoryName: newHero.Category.Name,
+            Active: newHero.Active,
+        };
+
         try {
-            const hero = {
-                Name: newHero.Name,
-                CategoryId: newHero.Category.Id,
-                CategoryName: newHero.Category.Name,
-                Active: newHero.Active,
-            };
             const response = await api.post('/Heroes', hero, { headers });
             setData(prevState => [...prevState, response.data]);
             setModal(false);
         } catch (error) {
             console.error(error);
         }
+        setModal(false)
     });
-
 
     const handleDelete = useCallback(async (id: number) => {
         try {
@@ -94,14 +114,42 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
         }
     }, [data]);
 
+    const handleSelectedHero = async (heroUpdate: Hero) => {
+        setSelectedHero(heroUpdate)
+    }
+    
+    const handleUptadedHero = async (heroToUpdate: Hero) => {
+        const hero = {
+            Name: heroToUpdate.Name,
+            CategoryId: heroToUpdate.Category.Id,
+            CategoryName: heroToUpdate.Category.Name,
+            Active: heroToUpdate.Active,
+        };
+
+        try {
+            const response = await api.put(`/Heroes/${selectedHero.Id}`, hero, { headers });
+            const updatedData = response.data;
+            setData(prevState => prevState.map(hero => (hero.Id === heroToUpdate.Id ? updatedData : hero)));
+        } catch (error) {
+            console.error(error);
+        }
+
+        setSelectedHero({...selectedHero, Id: 0})
+    }
+    
+
     return (
         <AppContext.Provider value={{
             data,
             setData,
+            selectedHero,
+            setSelectedHero,
             modal,
             setModal,
             handleDelete,
             handleAddHero,
+            handleSelectedHero,
+            handleUptadedHero,
             categories,
             setCategories
         }}>
