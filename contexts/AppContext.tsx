@@ -35,6 +35,8 @@ type AppContextType = {
     handleUptadedHero: (heroUpdate: Hero) => void;
     
     newCategory: boolean;
+    selectedCategory: string;
+    setSelectedCategory: (name: string) => void;
     setNewCategory: (modal: boolean) => void;
     handleAddCategory: (name: string) => void;
     handleDeleteCategory: (id: number) => void;
@@ -55,6 +57,8 @@ const AppContext = createContext<AppContextType>({
     handleUptadedHero: () => { },
     
     newCategory: false,
+    selectedCategory: "",
+    setSelectedCategory: () => { },
     setNewCategory: () => { },
     handleAddCategory: () => { },
     handleDeleteCategory: () => { },
@@ -69,6 +73,7 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
 
     const [modal, setModal] = useState<boolean>(false);
     const [newCategory, setNewCategory] = useState<boolean>(false);
+    const [selectedCategory, setSelectedCategory] = useState<string>("")
 
     const [selectedHero, setSelectedHero] = useState<Hero>({
         Id: 0,
@@ -146,7 +151,7 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
         setSelectedHero({ ...selectedHero, Id: 0 })
     }, [selectedHero]);
 
-
+    
 
     const handleAddCategory = useCallback(async (name: string) => {
         const newCategorie = { Name: name} 
@@ -184,6 +189,8 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
 
             newCategory,
             setNewCategory,
+            selectedCategory, 
+            setSelectedCategory,
             categories,
             setCategories,
             handleAddCategory,

@@ -27,7 +27,7 @@ export const AddCategory = () => {
   return (
     <div className='flex relative w-full'>
       {newCategory &&
-        <div className='absolute w-full bg-zinc-600 -top-32 rounded-lg p-4'>
+        <div className='absolute w-full bg-zinc-600 -top-32 rounded-lg p-4 shadow-lg shadow-green-700'>
           <form
             onSubmit={handleSubmit(onSubmit)}
           >
@@ -44,12 +44,9 @@ export const AddCategory = () => {
               Salvar nova Categoria
             </button>
           </form>
-          <button className='flex absolute items-center justify-center -top-4 -right-3 h-[30px] w-[30px] bg-zinc-500 rounded-lg'>
-            <i className='bx bx-window-close text-2xl text-zinc-200 hover:text-red-500'></i>
+          <button onClick={() => setNewCategory(false)} className='flex absolute items-center justify-center -top-4 -right-3 h-[30px] w-[30px] bg-zinc-500 rounded-lg'>
+            <i className='bx bx-x text-2xl text-zinc-200 hover:text-zinc-900'></i>
           </button>
-          <div className='w-full'>
-            <div className='absolute -bottom-3 rotate-45 w-[35px] h-[35px] bg-zinc-600 rounded-lg translate-x-2/4' />
-          </div>
         </div>
       }
 
@@ -60,7 +57,7 @@ export const AddCategory = () => {
         <p>
           Adicionar Categoria
         </p>
-        <i className='bx bxs-plus-square text-xl'></i>
+        <i className='bx bxs-layer-plus text-xl'></i>
       </button>
       <Modal />
     </div>
