@@ -66,7 +66,7 @@ export function Modal() {
                                             type="name"
                                             {...register("Name")}
                                             placeholder="Digite o nome do Herói"
-                                            className="flex w-full px-4 py-2 border-2 boreder-zinc-600 bg-transparent rounded-lg placeholder:text-zinc-600"
+                                            className={`${errors.Name && "ring-2 ring-red-500 border-red-500"} flex w-full px-4 py-2 border-2 boreder-zinc-600 bg-transparent rounded-lg placeholder:text-zinc-600`}
                                         />
                                         {errors.Name && <span className="text-red-500 text-sm -mt-2">O nome é obrigatório</span>}
 

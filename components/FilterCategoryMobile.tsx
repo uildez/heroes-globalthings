@@ -15,13 +15,13 @@ export const FilterCategoryMobile = () => {
                 <i className={`bx bx-chevron-down text-2xl ${filterCategoryModal ? "rotate-180 transition-all" : "rotate-0 transition-all"}`}></i>
             </button>
             {filterCategoryModal &&
-                <div className='flex flex-col bg-zinc-200 top-12 left-0 z-0 absolute gap-2 px-4 py-2 rounded-b-lg w-full max-h-[250px] overflow-y-scroll overflow-x-hidden'>
+                <div className='flex flex-col bg-zinc-800 ring-2 ring-zinc-600 top-12 left-0 z-0 absolute gap-2 px-4 py-2 rounded-b-lg w-full'>
                     {categories.map((categorie) => {
                         return (
                             <div
                                 key={categorie.Id}
                                 onClick={() => setSelectedCategory(categorie.Name)}
-                                className={`flex items-center justify-between w-full px-4 py-2 rounded-lg cursor-pointer ${selectedCategory == categorie.Name ? "bg-zinc-500 text-white" : "border-zinc-800 border-2 text-zinc-800 hover:bg-zinc-500 hover:text-white"}  transition-all`}
+                                className={`flex items-center justify-between w-full px-4 py-2 rounded-lg cursor-pointer ${selectedCategory == categorie.Name ? "bg-zinc-500 text-white" : "border-zinc-200 border-2 text-zinc-200 hover:bg-zinc-500 hover:text-white"}  transition-all`}
                             >
                                 <span>{categorie.Name}</span>
                                 <button

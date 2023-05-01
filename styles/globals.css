@@ -55,6 +55,7 @@ body {
 #mobileshow { 
   display:none; 
 }
+
 @media screen and (max-width: 900px) {
   #mobileshow { 
     display:block; 
