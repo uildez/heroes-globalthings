@@ -11,7 +11,7 @@ export const AddCategory = () => {
       <PopUpCategory />
       <button
         onClick={() => setNewCategory(true)}
-        className='flex w-full items-center justify-center gap-2 px-4 py-2 rounded-lg bg-[#E2041D] hover:bg-red-800 hover:scale-105 transition-all cursor-pointer'
+        className='flex w-full items-center justify-center gap-2 px-4 py-2 mt-4 rounded-lg bg-[#E2041D] z-20 hover:bg-red-800 hover:scale-105 transition-all cursor-pointer'
       >
         <p>
           Adicionar Categoria

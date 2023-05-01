@@ -24,9 +24,9 @@ export const PopUpCategory = () => {
     }
 
     return (
-        <>
+        <div className='hidden lg:flex'>
             {newCategory &&
-                <div className='absolute w-full bg-zinc-800 -top-32 rounded-lg p-4 shadow-lg shadow-[#E2041D]'>
+                <div className={`bg-zinc-200 w-full pb-8 rounded-lg p-4 z-10 ${newCategory && `absolute -top-24`}`}>
                     <form
                         onSubmit={handleSubmit(onSubmit)}
                     >
@@ -34,11 +34,11 @@ export const PopUpCategory = () => {
                             type="name"
                             {...register("name")}
                             placeholder="Insira o nome da Categoria"
-                            className="flex w-full px-2 py-1 text-sm border-2 boreder-zinc-600 bg-transparent rounded-lg placeholder:text-zinc-600"
+                            className="flex w-full px-2 py-1 text-sm border-2 border-zinc-800 bg-transparent rounded-lg placeholder:text-zinc-600"
                         />
                         <button
                             type="submit"
-                            className='bg-slate-100 text-zinc-800 font-bold text-sm px-2 py-1 w-full mt-4 rounded-lg hover:scale-105 hover:bg-green-500 hover:text-white transition-all ease-in-out'
+                            className='bg-zinc-800 text-zinc-200 font-bold text-sm px-2 py-1 w-full mt-4 rounded-lg hover:scale-105 hover:text-white transition-all ease-in-out'
                         >
                             Salvar nova Categoria
                         </button>
@@ -48,6 +48,6 @@ export const PopUpCategory = () => {
                     </button>
                 </div>
             }
-        </>
+        </div>
     )
 }

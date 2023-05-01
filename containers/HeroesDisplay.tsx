@@ -1,22 +1,41 @@
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Hero } from '@/components/Hero'
 import { useAppContext } from '@/contexts/AppContext';
-
-const PAGE_SIZE = 4;
+import { AddCategory } from '@/components/AddCategory';
+import { FilterCategoryMobile } from '@/components/FilterCategoryMobile';
 
 export const HeroesDisplay = () => {
     const { data, selectedCategory, setSelectedCategory } = useAppContext();
 
+    const [pageSize, setPageSize] = useState(4);
     const [currentPage, setCurrentPage] = useState(1);
 
     const handlePageChange = (pageNumber: number) => {
         setCurrentPage(pageNumber);
     }
 
+    useEffect(() => {
+        function handleResize() {
+            const width = window.innerWidth;
+            if (width <= 700) {
+                setPageSize(6);
+            } else {
+                setPageSize(4);
+            }
+        }
+
+        handleResize();
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
     const renderHeroes = () => {
-        const start = (currentPage - 1) * PAGE_SIZE;
-        const end = start + PAGE_SIZE;
+        const start = (currentPage - 1) * pageSize;
+        const end = start + pageSize;
         const currentPageData = data
             .filter(hero => {
                 const hasCategory = !selectedCategory ? true : hero.Category?.Name === selectedCategory;
@@ -43,6 +62,7 @@ export const HeroesDisplay = () => {
     return (
         <>
             <div className='flex flex-col gap-2 items-center justify-between w-full h-full px-4 py-4 bg-zinc-900/80 backdrop-blur-md rounded-lg heroes'>
+                <FilterCategoryMobile />
                 <div className='flex flex-col gap-2 w-full'>
                     {renderHeroes()}
                 </div>
@@ -53,16 +73,16 @@ export const HeroesDisplay = () => {
                             onClick={() => {
                                 if (currentPage != 1) {
                                     handlePageChange(currentPage - 1)
-                                    console.log(currentPage === Math.ceil(data.length / PAGE_SIZE))
+                                    console.log(currentPage === Math.ceil(data.length / pageSize))
                                 }
                             }}
                         >
                             <i className='bx bxs-chevron-left text-zinc-700'></i>
                         </button>
                         <button
-                            className={`flex items-center justify-center px-4 py-2 rounded-lg ${currentPage === Math.ceil(data.length / PAGE_SIZE) ? "bg-zinc-800/50 cursor-none" : "bg-zinc-800 hover:bg-zinc-500 hover:scale-105 cursor-pointer"} transition-all`}
+                            className={`flex items-center justify-center px-4 py-2 rounded-lg ${currentPage === Math.ceil(data.length / pageSize) ? "bg-zinc-800/50 cursor-none" : "bg-zinc-800 hover:bg-zinc-500 hover:scale-105 cursor-pointer"} transition-all`}
                             onClick={() => {
-                                if (currentPage != Math.ceil(data.length / PAGE_SIZE)) {
+                                if (currentPage != Math.ceil(data.length / pageSize)) {
                                     handlePageChange(currentPage + 1)
                                 }
                             }}
@@ -79,6 +99,9 @@ export const HeroesDisplay = () => {
                         </button>
                     }
                 </div>
+            </div>
+            <div id='mobileshow'>
+                <AddCategory />
             </div>
         </>
     )

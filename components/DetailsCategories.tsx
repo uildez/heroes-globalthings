@@ -6,7 +6,7 @@ export const DetailsCategories = () => {
   const { categories, handleDeleteCategory, selectedCategory, setSelectedCategory } = useAppContext();
 
   return (
-    <div className='flex flex-col justify-between items-center p-4 bg-zinc-900/80 backdrop-blur-md h-full rounded-lg'>
+    <div className='lg:flex hidden flex-col justify-between items-center p-4 bg-zinc-900/80 backdrop-blur-md h-full rounded-lg'>
       <div>
         <h2 className='font-bold text-center'>Categorias cadastradas</h2>
         <span className='font-thin text-center text-sm mb-4'>Clique na categoria para filtrar</span>
