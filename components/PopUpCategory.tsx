@@ -24,7 +24,7 @@ export const PopUpCategory = () => {
     }
 
     return (
-        <div className='hidden lg:flex'>
+        <>
             {newCategory &&
                 <div className={`bg-zinc-200 w-full pb-8 rounded-lg p-4 z-10 ${newCategory && `absolute -top-24`}`}>
                     <form
@@ -48,6 +48,6 @@ export const PopUpCategory = () => {
                     </button>
                 </div>
             }
-        </div>
+        </>
     )
 }
