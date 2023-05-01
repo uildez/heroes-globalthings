@@ -100,7 +100,7 @@ export const HeroesDisplay = () => {
                     }
                 </div>
             </div>
-            <div id='mobileshow'>
+            <div id='mobileshow' className='pb-8'>
                 <AddCategory />
             </div>
         </>
