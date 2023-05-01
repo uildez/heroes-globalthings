@@ -38,6 +38,8 @@ export function Modal() {
         handleAddHero(newHero)
     }
 
+    console.log(errors)
+
     return (
         <>
             {modal && (
@@ -68,6 +70,7 @@ export function Modal() {
                                             placeholder="Digite o nome do Herói"
                                             className="flex w-full px-4 py-2 border-2 boreder-zinc-600 bg-transparent rounded-lg placeholder:text-zinc-600"
                                         />
+                                        {errors.Name && <span className="text-red-500 text-sm -mt-2">O nome é obrigatório</span>}
 
                                         <select
                                             {...register("Category")}
@@ -78,12 +81,14 @@ export function Modal() {
                                                 setSelectedCategory(category || { Id: 0, Name: '' });
                                             }}
                                         >
+                                            <option selected disabled hidden>Escolha uma categoria</option>
                                             {categories.map((categorie) => {
                                                 return (
                                                     <option key={categorie.Id} value={categorie.Name && categorie.Id} className="text-zinc-700">{categorie.Name}</option>
                                                 )
                                             })}
                                         </select>
+                                        {errors.Category && <span className="text-red-500 text-sm -mt-2">Selecione uma categoria</span>}
 
                                         <div className="flex items-center">
                                             <label htmlFor="check">Ativo</label>
