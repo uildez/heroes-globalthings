@@ -42,7 +42,7 @@ export const HeroesDisplay = () => {
 
     return (
         <>
-            <div className='flex flex-col gap-2 items-center justify-between w-full h-full px-4 py-4 bg-zinc-900 rounded-lg heroes'>
+            <div className='flex flex-col gap-2 items-center justify-between w-full h-full px-4 py-4 bg-zinc-900/80 backdrop-blur-md rounded-lg heroes'>
                 <div className='flex flex-col gap-2 w-full'>
                     {renderHeroes()}
                 </div>

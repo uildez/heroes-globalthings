@@ -9,7 +9,7 @@ export const AddHero = () => {
     <>
       <button
         onClick={() => setModal(true)}
-        className='flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-green-500 hover:bg-green-600 hover:scale-105 transition-all cursor-pointer'
+        className='flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-[#E2041D] hover:bg-red-800 hover:scale-105 transition-all cursor-pointer'
       >
         <p>
           Adicionar Herói
