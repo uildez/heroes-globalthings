@@ -15,10 +15,10 @@ export const DetailsCategories = () => {
       <div className='flex flex-col gap-2 w-full max-h-[250px] overflow-y-scroll overflow-x-hidden py-2 pr-4'>
         {categories.map((categorie) => {
           return (
-            <button
+            <div
               key={categorie.Id}
               onClick={() => setSelectedCategory(categorie.Name)}
-              className={`flex items-center justify-between w-full px-4 py-2 rounded-lg ${selectedCategory == categorie.Name ? "bg-zinc-500" : "bg-zinc-800 hover:bg-zinc-500"}  transition-all`}
+              className={`flex items-center justify-between w-full px-4 py-2 rounded-lg cursor-pointer ${selectedCategory == categorie.Name ? "bg-zinc-500" : "bg-zinc-800 hover:bg-zinc-500"}  transition-all`}
             >
               <span>{categorie.Name}</span>
               <button
@@ -27,7 +27,7 @@ export const DetailsCategories = () => {
               >
                 <i className='bx bx-trash' ></i>
               </button>
-            </button>
+            </div>
           )
         })}
       </div>

@@ -106,7 +106,6 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
         const hero = {
             Name: newHero.Name,
             CategoryId: newHero.Category.Id,
-            CategoryName: newHero.Category.Name,
             Active: newHero.Active,
         };
 
@@ -164,14 +163,14 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
         }
     }, []);
 
-    const handleDeleteCategory = useCallback(async (id: number) => {
+    const handleDeleteCategory = async (idDelete: number) => {
         try {
-            await api.delete(`/Category/${id}`, { headers });
-            setCategories(data.filter((category) => category.Id !== id));
+            await api.delete(`/Category/${idDelete}`, { headers });
+            setCategories(categories.filter((category) => category.Id !== idDelete));
         } catch (error) {
             console.error(error);
         }
-    }, [data]);
+    };
 
 
     return (

@@ -9,7 +9,6 @@ export const HeroesDisplay = () => {
     const { data, selectedCategory, setSelectedCategory } = useAppContext();
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(Math.ceil(data.length / PAGE_SIZE));
 
     const handlePageChange = (pageNumber: number) => {
         setCurrentPage(pageNumber);
@@ -18,7 +17,6 @@ export const HeroesDisplay = () => {
     const renderHeroes = () => {
         const start = (currentPage - 1) * PAGE_SIZE;
         const end = start + PAGE_SIZE;
-        // const currentPageData = data.slice(start, end);
         const currentPageData = data
             .filter(hero => {
                 const hasCategory = !selectedCategory ? true : hero.Category?.Name === selectedCategory;
@@ -39,6 +37,7 @@ export const HeroesDisplay = () => {
                 </div>
                 <span className='font-thin text-center text-sm'>Selecione outro filtro</span>
             </div>
+
     }
 
     return (
@@ -49,10 +48,25 @@ export const HeroesDisplay = () => {
                 </div>
                 <div className='flex justify-between w-full'>
                     <div className="flex gap-2 w-full">
-                        <button className='flex items-center justify-center bg-zinc-800 px-4 py-2 rounded-lg hover:border-zinc-200 hover:scale-105 hover:border-2 cursor-pointer transition-all' onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
-                            <i className='bx bxs-chevron-left'></i>
+                        <button
+                            className={`flex items-center justify-center px-4 py-2 rounded-lg ${currentPage === 1 ? "bg-zinc-800/50 cursor-none" : "bg-zinc-800 hover:bg-zinc-500 hover:scale-105 cursor-pointer"} transition-all`}
+                            onClick={() => {
+                                if (currentPage != 1) {
+                                    handlePageChange(currentPage - 1)
+                                    console.log(currentPage === Math.ceil(data.length / PAGE_SIZE))
+                                }
+                            }}
+                        >
+                            <i className='bx bxs-chevron-left text-zinc-700'></i>
                         </button>
-                        <button className='flex items-center justify-center bg-zinc-800 px-4 py-2 rounded-lg hover:border-zinc-200 hover:scale-105 hover:border-2 cursor-pointer transition-all' onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+                        <button
+                            className={`flex items-center justify-center px-4 py-2 rounded-lg ${currentPage === Math.ceil(data.length / PAGE_SIZE) ? "bg-zinc-800/50 cursor-none" : "bg-zinc-800 hover:bg-zinc-500 hover:scale-105 cursor-pointer"} transition-all`}
+                            onClick={() => {
+                                if (currentPage != Math.ceil(data.length / PAGE_SIZE)) {
+                                    handlePageChange(currentPage + 1)
+                                }
+                            }}
+                        >
                             <i className='bx bxs-chevron-right'></i>
                         </button>
                     </div>

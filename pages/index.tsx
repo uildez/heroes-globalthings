@@ -1,8 +1,6 @@
 import { Inter } from 'next/font/google'
 import { Sidebar } from '@/containers/Sidebar'
 import { HeroesDisplay } from '@/containers/HeroesDisplay'
-import { Modal } from '@/components/Modal'
-import { useAppContext } from '@/contexts/AppContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
