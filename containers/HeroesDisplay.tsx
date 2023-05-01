@@ -69,7 +69,7 @@ export const HeroesDisplay = () => {
                 <div className='flex justify-between w-full'>
                     <div className="flex gap-2 w-full">
                         <button
-                            className={`flex items-center justify-center px-4 py-2 rounded-lg ${currentPage === 1 ? "bg-zinc-800/50 cursor-none" : "bg-zinc-800 hover:bg-zinc-500 hover:scale-105 cursor-pointer"} transition-all`}
+                            className={`flex items-center justify-center px-4 py-2 rounded-lg ${currentPage === 1 ? "bg-zinc-800 cursor-none" : "bg-zinc-600 hover:scale-105 cursor-pointer"} transition-all`}
                             onClick={() => {
                                 if (currentPage != 1) {
                                     handlePageChange(currentPage - 1)
@@ -77,17 +77,17 @@ export const HeroesDisplay = () => {
                                 }
                             }}
                         >
-                            <i className='bx bxs-chevron-left text-zinc-700'></i>
+                            <i className={`bx bxs-chevron-left ${currentPage === 1 ? "text-zinc-700": "text-white"}`}></i>
                         </button>
                         <button
-                            className={`flex items-center justify-center px-4 py-2 rounded-lg ${currentPage === Math.ceil(data.length / pageSize) ? "bg-zinc-800/50 cursor-none" : "bg-zinc-800 hover:bg-zinc-500 hover:scale-105 cursor-pointer"} transition-all`}
+                            className={`flex items-center justify-center px-4 py-2 rounded-lg ${currentPage === Math.ceil(data.length / pageSize) ? "bg-zinc-800 cursor-none" : "bg-zinc-600 hover:scale-105 cursor-pointer"} transition-all`}
                             onClick={() => {
                                 if (currentPage != Math.ceil(data.length / pageSize)) {
                                     handlePageChange(currentPage + 1)
                                 }
                             }}
                         >
-                            <i className='bx bxs-chevron-right'></i>
+                            <i className={`bx bxs-chevron-right ${currentPage != Math.ceil(data.length / pageSize) ? "text-white" : "text-zinc-700"}`}></i>
                         </button>
                     </div>
                     {selectedCategory &&

@@ -38,8 +38,6 @@ export function Modal() {
         handleAddHero(newHero)
     }
 
-    console.log(errors)
-
     return (
         <>
             {modal && (

@@ -92,7 +92,7 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
             setData(result.data.Items);
         };
         fetchData();
-    }, []);
+    }, [data]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -100,7 +100,7 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
             setCategories(result.data.Items);
         };
         fetchData();
-    }, []);
+    }, [categories]);
 
     const handleAddHero = useCallback(async (newHero: Hero) => {
         const hero = {
